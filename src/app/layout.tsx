@@ -15,7 +15,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = "https://atwaterstrategy.com";
+const siteUrl = "https://atwaterstrategygroup.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

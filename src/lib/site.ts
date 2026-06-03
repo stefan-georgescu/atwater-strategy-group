@@ -4,7 +4,7 @@ export const site = {
   tagline: "From ambition to offer.",
   bookingUrl: "https://calendly.com/atwaterstrategygroup/intro-call",
   portalUrl: "/portal",
-  email: "advisory@atwaterstrategy.co",
+  email: "advisory@atwaterstrategygroup.com",
   disclaimer:
     "Atwater Strategy Group does not sell, broker, or guarantee internships, jobs, or referrals. Every outcome is earned on merit. Our role is limited to mentorship, training, and structured preparation — all hiring decisions are made independently by employers.",
 };
