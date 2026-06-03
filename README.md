@@ -1,10 +1,15 @@
-# Summit Street Advisory
+# Atwater Strategy Group
 
-Ultra-premium marketing site for a 1-on-1 high finance coaching company. Dark "ink & champagne" aesthetic, serif display type, scroll-reveal animations, and a single conversion-focused landing page.
+Marketing site and member portal for Atwater Strategy Group — 1-on-1 high finance and management consulting coaching.
 
 Built with **Next.js 16 (App Router)**, **TypeScript**, and **Tailwind CSS v4**.
 
-## Getting started
+## Live site
+
+- **Production (Vercel):** https://summit-street-advisory.vercel.app
+- **Custom domain (after DNS):** https://atwaterstrategygroup.com
+
+## Local development
 
 ```bash
 npm install
@@ -13,40 +18,36 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Scripts
+## Content
 
-- `npm run dev` — start the dev server
-- `npm run build` — production build
-- `npm run start` — serve the production build
-- `npm run lint` — lint
+Almost all copy lives in [`src/lib/site.ts`](src/lib/site.ts).
 
-## Editing content
+## Deploy on Vercel
 
-Almost all copy lives in one place: [`src/lib/site.ts`](src/lib/site.ts).
+The project is linked to Vercel (`summit-street-advisory`). Redeploy:
 
-- `site` — name, tagline, **booking URL (Calendly placeholder)**, contact email, legal disclaimer
-- `stats` — the headline numbers (300+ offers, etc.)
-- `firms` — the scrolling "offers at" marquee
-- `pillars` — the 4-phase process
-- `tracks` — the role specializations
-- `mentors` — mentor cards
-- `testimonials`, `faqs`
-
-> **Before launch:** replace the placeholder Calendly link, email, mentor bios, and stats with real, verifiable details. The numbers and quotes are illustrative.
-
-## Structure
-
+```bash
+vercel deploy --prod
 ```
-src/
-  app/
-    layout.tsx     # fonts + metadata
-    page.tsx       # section composition
-    globals.css    # theme tokens, animations, utilities
-  components/
-    Nav.tsx        # sticky blur nav + mobile menu
-    Reveal.tsx     # scroll-reveal wrapper
-    Marquee.tsx    # firm logo marquee
-    Faq.tsx        # accordion
-  lib/
-    site.ts        # all editable content
+
+### Custom domain DNS (GoDaddy)
+
+In your GoDaddy DNS for **atwaterstrategygroup.com**, add:
+
+| Type  | Name | Value              |
+|-------|------|--------------------|
+| A     | @    | `76.76.21.21`      |
+| A     | www  | `76.76.21.21`      |
+
+Or point nameservers to Vercel (see [Vercel domain docs](https://vercel.com/docs/domains/working-with-domains)).
+
+Propagation can take up to 48 hours; Vercel will email when the domain is verified.
+
+## GitHub
+
+```bash
+gh auth login
+gh repo create atwater-strategy-group --public --source=. --remote=origin --push
 ```
+
+Then connect the repo in the Vercel dashboard for automatic deploys on push.
