@@ -700,7 +700,7 @@ function Cta() {
         <div className="rule-accent absolute inset-x-0 top-0" aria-hidden />
         <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
         <div
-          className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[46rem] -translate-x-1/2 rounded-full bg-gold/[0.16] blur-[110px]"
+          className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[46rem] -translate-x-1/2 rounded-full bg-gold/25 blur-[110px]"
           aria-hidden
         />
         <div className="bg-grain" aria-hidden />
