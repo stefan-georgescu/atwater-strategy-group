@@ -56,8 +56,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05080f",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -70,7 +70,7 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-cream">
+      <body className="min-h-full flex flex-col bg-white text-fg">
         {children}
       </body>
     </html>

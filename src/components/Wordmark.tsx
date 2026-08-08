@@ -1,27 +1,52 @@
 type WordmarkProps = {
-  /** Renders the stacked lockup at a larger scale for hero-style placements. */
-  size?: "sm" | "md";
+  /** "row" places the mark beside the name; "stack" mirrors the logo artwork. */
+  orientation?: "row" | "stack";
+  size?: "sm" | "md" | "lg";
 };
 
-export default function Wordmark({ size = "sm" }: WordmarkProps) {
-  const md = size === "md";
+const SIZES = {
+  sm: { mark: 38, name: "1.0625rem", sub: "0.5rem" },
+  md: { mark: 50, name: "1.375rem", sub: "0.5625rem" },
+  lg: { mark: 96, name: "2.25rem", sub: "0.75rem" },
+} as const;
+
+export default function Wordmark({
+  orientation = "row",
+  size = "sm",
+}: WordmarkProps) {
+  const s = SIZES[size];
+  const stacked = orientation === "stack";
+
   return (
-    <span className="flex items-center gap-3">
-      <Mark size={md ? 44 : 38} />
-      <span className="flex flex-col gap-[0.3rem]">
+    <span
+      className={
+        stacked
+          ? "flex flex-col items-center gap-4"
+          : "flex items-center gap-3.5"
+      }
+    >
+      <Mark height={s.mark} />
+      <span
+        className={`flex flex-col ${stacked ? "items-center gap-2" : "gap-1.5"}`}
+      >
         <span
-          className={`display leading-none text-cream ${
-            md ? "text-[1.5rem]" : "text-[1.25rem]"
-          }`}
+          className="display leading-none"
+          style={{
+            fontSize: s.name,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+          }}
         >
           Atwater
         </span>
         <span
-          className="font-mono uppercase leading-none text-muted"
-          style={{
-            fontSize: md ? "0.625rem" : "0.5625rem",
-            letterSpacing: "0.26em",
-          }}
+          className="h-px w-full bg-line-strong"
+          style={{ marginBlock: "0.05rem" }}
+          aria-hidden
+        />
+        <span
+          className="font-sans uppercase leading-none text-fg-dim"
+          style={{ fontSize: s.sub, letterSpacing: "0.3em" }}
         >
           Strategy Group
         </span>
@@ -30,27 +55,33 @@ export default function Wordmark({ size = "sm" }: WordmarkProps) {
   );
 }
 
-function Mark({ size }: { size: number }) {
+/* Inlined rather than loaded from public/atwater-mark.svg so the darkest
+   shapes and the negative-space wake can follow the surrounding surface,
+   letting one mark sit on both white and inverted navy bands. */
+function Mark({ height }: { height: number }) {
   return (
-    <span
-      className="grid flex-none place-items-center rounded-[3px] border border-line-strong bg-gradient-to-b from-white/[0.05] to-transparent"
-      style={{ height: size, width: size }}
+    <svg
+      height={height}
+      viewBox="0 0 132 100"
+      fill="none"
+      className="flex-none overflow-visible"
       aria-hidden
     >
-      <svg
-        width={size * 0.58}
-        height={size * 0.58}
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M12 3.5 21 19.5H3L12 3.5Z"
-          stroke="var(--color-gold)"
-          strokeWidth="1.25"
-          strokeLinejoin="round"
-        />
-        <path d="M12 9.5 16 16.5H8L12 9.5Z" fill="var(--color-gold-bright)" />
-      </svg>
-    </span>
+      <path d="M28 44 L54 35 L50 76 L24 76 Z" fill="#A9C4E0" />
+      <path d="M60 30 L90 19 L86 76 L56 76 Z" fill="#5B87BC" />
+      <path d="M96 13 L130 1 L126 80 L92 80 Z" className="fill-fg" />
+      <path
+        d="M0 72 C42 70 86 55 132 26 L132 34 C86 62 42 78 0 82 Z"
+        className="fill-surface"
+      />
+      <path
+        d="M0 82 C42 80 86 64 132 34 C86 68 42 84 0 86 Z"
+        className="fill-fg"
+      />
+      <path d="M0 84 H44 V86 H0 Z" className="fill-fg" />
+      <path d="M12 88.5 H50 V91 H12 Z" fill="#A9C4E0" />
+      <path d="M17 93 H45 V95.5 H17 Z" fill="#A9C4E0" />
+      <path d="M22 97.5 H40 V100 H22 Z" fill="#A9C4E0" />
+    </svg>
   );
 }

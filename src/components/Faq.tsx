@@ -20,20 +20,20 @@ export default function Faq() {
             >
               <span
                 className={`label mt-1.5 w-6 flex-none transition-colors ${
-                  isOpen ? "text-gold" : "label-muted"
+                  isOpen ? "text-accent" : "label-muted"
                 }`}
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span
                 className={`display display-3 flex-1 transition-colors ${
-                  isOpen ? "text-cream" : "text-cream/85 group-hover:text-cream"
+                  isOpen ? "text-fg" : "text-fg/80 group-hover:text-fg"
                 }`}
               >
                 {item.q}
               </span>
               <span
-                className={`mt-1 grid h-6 w-6 flex-none place-items-center text-gold transition-transform duration-300 ${
+                className={`mt-1 grid h-6 w-6 flex-none place-items-center text-accent transition-transform duration-300 ${
                   isOpen ? "rotate-45" : "group-hover:rotate-90"
                 }`}
                 aria-hidden
