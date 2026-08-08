@@ -41,7 +41,7 @@ export default function LoginForm() {
           </label>
           <a
             href="#"
-            className="text-[0.78rem] text-gold transition-colors hover:text-gold-bright"
+            className="text-[0.78rem] text-accent transition-colors hover:text-navy"
           >
             Forgot password?
           </a>
@@ -61,18 +61,18 @@ export default function LoginForm() {
             type="button"
             onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-muted transition-colors hover:text-cream"
+            className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-fg-muted transition-colors hover:text-fg"
           >
             {showPassword ? <EyeOff /> : <Eye />}
           </button>
         </div>
       </div>
 
-      <label className="flex items-center gap-2.5 text-[0.82rem] text-cream-dim">
+      <label className="flex items-center gap-2.5 text-[0.82rem] text-fg-dim">
         <input
           type="checkbox"
           name="remember"
-          className="h-4 w-4 accent-gold"
+          className="h-4 w-4 accent-navy"
           defaultChecked
         />
         Keep me signed in
@@ -84,8 +84,8 @@ export default function LoginForm() {
         }`}
         aria-live="polite"
       >
-        <p className="flex items-start gap-2.5 rounded-[4px] border border-gold/25 bg-gold/[0.05] px-3.5 py-3 text-[0.82rem] leading-relaxed text-cream-dim">
-          <span className="mt-0.5 flex-none text-gold" aria-hidden>
+        <p className="flex items-start gap-2.5 rounded-[4px] border border-navy-mid/30 bg-navy-wash px-3.5 py-3 text-[0.82rem] leading-relaxed text-fg-dim">
+          <span className="mt-0.5 flex-none text-accent" aria-hidden>
             ⓘ
           </span>
           Portal access is reserved for active members. Please check your
@@ -126,11 +126,11 @@ export default function LoginForm() {
         )}
       </button>
 
-      <p className="text-center text-[0.82rem] text-muted">
+      <p className="text-center text-[0.82rem] text-fg-muted">
         Trouble signing in?{" "}
         <a
           href={`mailto:${site.email}`}
-          className="text-gold transition-colors hover:text-gold-bright"
+          className="text-accent transition-colors hover:text-navy"
         >
           Contact your advisor
         </a>

@@ -12,13 +12,14 @@ export const metadata: Metadata = {
 
 export default function PortalPage() {
   return (
-    <main className="relative flex min-h-screen bg-ink">
+    <main className="relative flex min-h-screen bg-white">
       {/* Left — brand panel */}
-      <aside className="relative hidden w-[46%] flex-col justify-between overflow-hidden border-r border-line p-12 lg:flex xl:p-16">
-        <div className="glow-top" aria-hidden />
+      <aside className="band-deep relative hidden w-[46%] flex-col justify-between overflow-hidden p-12 lg:flex xl:p-16">
         <div className="bg-grid absolute inset-0" aria-hidden />
-        <div className="vignette" aria-hidden />
-        <div className="bg-grain" aria-hidden />
+        <div
+          className="pointer-events-none absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-navy-light/25 blur-[110px]"
+          aria-hidden
+        />
 
         <Link href="/" className="relative self-start">
           <Wordmark size="md" />
@@ -26,10 +27,10 @@ export default function PortalPage() {
 
         <div className="relative max-w-md">
           <div className="flex items-center gap-3">
-            <span className="h-px w-7 flex-none bg-gold" aria-hidden />
+            <span className="h-px w-7 flex-none bg-accent" aria-hidden />
             <span className="label">Member Portal</span>
           </div>
-          <h1 className="display mt-6 text-[2.5rem] leading-[1.06] text-cream xl:text-[3rem]">
+          <h1 className="display mt-6 text-[2.5rem] leading-[1.06] xl:text-[3rem]">
             Welcome back to{" "}
             <span className="display-accent">your workspace.</span>
           </h1>
@@ -46,9 +47,9 @@ export default function PortalPage() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3.5 border-b border-line py-4 text-[0.9rem] text-cream-dim"
+                className="flex items-center gap-3.5 border-b border-line py-4 text-[0.9rem] text-fg-dim"
               >
-                <span className="text-gold" aria-hidden>
+                <span className="text-accent" aria-hidden>
                   <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
                     <path
                       d="M2 6.2l2.4 2.4L10 3.2"
@@ -65,7 +66,7 @@ export default function PortalPage() {
           </ul>
         </div>
 
-        <p className="relative max-w-md text-[0.75rem] leading-relaxed text-muted">
+        <p className="relative max-w-md text-[0.75rem] leading-relaxed text-fg-muted">
           Confidential workspace for active Atwater Strategy Group members.
           Unauthorized access is prohibited.
         </p>
@@ -82,7 +83,7 @@ export default function PortalPage() {
         <div className="flex flex-1 flex-col justify-center">
           <div className="mx-auto w-full max-w-sm py-14">
             <span className="label">Secure sign in</span>
-            <h2 className="display mt-5 text-[2rem] leading-tight text-cream sm:text-[2.25rem]">
+            <h2 className="display mt-5 text-[2rem] leading-tight sm:text-[2.25rem]">
               Welcome back
             </h2>
             <p className="body-sm mt-3">
@@ -98,7 +99,7 @@ export default function PortalPage() {
         <div className="flex items-center justify-between border-t border-line pt-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-[0.8125rem] text-cream-dim transition-colors hover:text-cream"
+            className="inline-flex items-center gap-1.5 text-[0.8125rem] text-fg-dim transition-colors hover:text-fg"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path

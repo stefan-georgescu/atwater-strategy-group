@@ -67,7 +67,7 @@ export default function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         scrolled
-          ? "border-b border-line bg-ink/85 backdrop-blur-xl"
+          ? "border-b border-line bg-white/85 backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -85,12 +85,12 @@ export default function Nav() {
                 href={l.href}
                 aria-current={isActive ? "true" : undefined}
                 className={`group relative px-3.5 py-2 text-[0.875rem] font-medium tracking-[-0.005em] transition-colors duration-200 ${
-                  isActive ? "text-cream" : "text-cream-dim hover:text-cream"
+                  isActive ? "text-fg" : "text-fg-dim hover:text-fg"
                 }`}
               >
                 {l.label}
                 <span
-                  className={`pointer-events-none absolute inset-x-3.5 bottom-0 h-px origin-left bg-gold transition-transform duration-300 ${
+                  className={`pointer-events-none absolute inset-x-3.5 bottom-0 h-px origin-left bg-navy-mid transition-transform duration-300 ${
                     isActive
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
@@ -126,7 +126,7 @@ export default function Nav() {
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 flex h-11 w-11 items-center justify-center text-cream lg:hidden"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-fg lg:hidden"
         >
           <span className="relative block h-3.5 w-5">
             <span
@@ -150,14 +150,14 @@ export default function Nav() {
 
       {/* Reading progress */}
       <div
-        className="h-px origin-left bg-gradient-to-r from-gold-deep via-gold to-gold-bright transition-transform duration-150 ease-out"
+        className="h-px origin-left bg-gradient-to-r from-navy-pale via-navy-light to-navy transition-transform duration-150 ease-out"
         style={{ transform: `scaleX(${progress})` }}
         aria-hidden
       />
 
       {/* Mobile menu */}
       <div
-        className={`overflow-hidden border-b border-line bg-ink/95 backdrop-blur-xl transition-[max-height,opacity] duration-[400ms] lg:hidden ${
+        className={`overflow-hidden border-b border-line bg-white/97 backdrop-blur-xl transition-[max-height,opacity] duration-[400ms] lg:hidden ${
           open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -170,7 +170,7 @@ export default function Nav() {
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className={`flex items-center gap-4 border-b border-line py-4 transition-colors ${
-                  isActive ? "text-cream" : "text-cream-dim"
+                  isActive ? "text-fg" : "text-fg-dim"
                 }`}
               >
                 <span className="label label-muted w-6">
@@ -178,7 +178,7 @@ export default function Nav() {
                 </span>
                 <span className="display display-3">{l.label}</span>
                 {isActive && (
-                  <span className="ml-auto h-1 w-1 rounded-full bg-gold" aria-hidden />
+                  <span className="ml-auto h-1 w-1 rounded-full bg-navy-mid" aria-hidden />
                 )}
               </a>
             );

@@ -43,16 +43,14 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-28 lg:pt-52 lg:pb-32">
-      <div className="glow-top" aria-hidden />
+    <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-24 lg:pt-52 lg:pb-28">
+      <div className="wash-top" aria-hidden />
       <div className="bg-grid absolute inset-0" aria-hidden />
-      <div className="vignette" aria-hidden />
-      <div className="bg-grain" aria-hidden />
-      <div className="glow-floor" aria-hidden />
+      <div className="fade-to-white" aria-hidden />
 
       <div className="shell relative flex flex-col items-center text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-gold/25 bg-gold/[0.05] px-3.5 py-2">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-line-strong bg-white/70 px-3.5 py-2 backdrop-blur-sm">
             <span className="pulse-dot" aria-hidden />
             <span className="label label-compact tnum">
               300+ offers at the world&apos;s top firms
@@ -66,7 +64,7 @@ function Hero() {
 
         <Reveal delay={100}>
           <h1 className="display display-1 mt-6 text-balance">
-            <span className="block text-cream">High Finance</span>
+            <span className="block">High Finance</span>
             <span className="display-accent block">
               &amp; Management Consulting
             </span>
@@ -100,8 +98,16 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={280}>
-          <p className="label label-muted label-compact mt-7 leading-relaxed">
-            Limited roster · By application · Target &amp; non-target welcome
+          {/* Split so the line breaks between items rather than inside one. */}
+          <p className="label label-muted label-compact mt-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
+            {["Limited roster", "By application", "Target & non-target welcome"].map(
+              (item, i) => (
+                <span key={item} className="flex items-center gap-2.5">
+                  {i > 0 && <span aria-hidden>·</span>}
+                  <span className="whitespace-nowrap">{item}</span>
+                </span>
+              ),
+            )}
           </p>
         </Reveal>
       </div>
@@ -126,7 +132,7 @@ function Hero() {
                 )}
               >
                 <dt className="label label-muted">{s.label}</dt>
-                <dd className="figure text-[2rem] text-cream sm:text-[2.25rem]">
+                <dd className="figure text-[2rem] sm:text-[2.25rem]">
                   {s.value}
                 </dd>
               </div>
@@ -142,7 +148,7 @@ function Hero() {
 
 function FirmsStrip() {
   return (
-    <section className="border-b border-line bg-ink-soft/60 py-9">
+    <section className="border-b border-line bg-surface-sunken py-9">
       <p className="label label-muted mb-7 text-center">
         Our students have landed offers at
       </p>
@@ -186,9 +192,9 @@ function Approach() {
             },
           ].map((item, i) => (
             <Reveal key={item.title} delay={i * 90} className="h-full">
-              <div className="group flex h-full flex-col gap-4 bg-ink-soft p-8 transition-colors duration-300 hover:bg-ink-raised lg:p-10">
+              <div className="group flex h-full flex-col gap-4 bg-white p-8 transition-colors duration-300 hover:bg-surface-sunken lg:p-10">
                 <span className="label tnum">{`0${i + 1}`}</span>
-                <h3 className="display display-3 text-cream">{item.title}</h3>
+                <h3 className="display display-3">{item.title}</h3>
                 <p className="body-sm text-pretty">{item.body}</p>
               </div>
             </Reveal>
@@ -204,11 +210,14 @@ function Approach() {
 const AXIS_MAX = 300;
 const GRIDLINES = [0, 100, 200, 300];
 
+/* Light-to-dark ascent, echoing the panels in the logo. */
+const BAR_FILLS = ["bg-navy-pale", "bg-navy-light", "bg-navy"];
+
 function Story() {
   return (
     <section
       id="story"
-      className="section-y relative border-t border-line bg-ink-soft/50"
+      className="section-y relative border-t border-line bg-surface-sunken"
     >
       <div className="shell">
         <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
@@ -239,7 +248,7 @@ function Story() {
                     <dt className="label label-muted leading-relaxed">
                       {item.label}
                     </dt>
-                    <dd className="figure text-[1.75rem] text-gold-bright">
+                    <dd className="figure text-[1.75rem] text-navy-mid">
                       {item.value}
                     </dd>
                   </div>
@@ -249,11 +258,9 @@ function Story() {
           </Reveal>
 
           <Reveal delay={140}>
-            <figure className="panel p-6 sm:p-8">
+            <figure className="panel p-6 shadow-[0_24px_60px_-40px_rgba(14,41,66,0.4)] sm:p-8">
               <figcaption className="flex items-center justify-between border-b border-line pb-5">
-                <span className="display text-[1.0625rem] text-cream">
-                  Offers secured
-                </span>
+                <span className="display text-[1.0625rem]">Offers secured</span>
                 <span className="label label-muted">Cumulative</span>
               </figcaption>
 
@@ -283,14 +290,17 @@ function Story() {
                     return (
                       <div key={g.year} className="relative h-full flex-1">
                         <span
-                          className="figure absolute inset-x-0 text-center text-[1.125rem] text-cream"
+                          className="figure absolute inset-x-0 text-center text-[1.125rem]"
                           style={{ bottom: `calc(${pct}% + 0.65rem)` }}
                         >
                           {g.offers}
                           {isLast ? "+" : ""}
                         </span>
                         <div
-                          className="bar-grow absolute inset-x-0 bottom-0 mx-auto w-full max-w-[4.5rem] border-t border-gold-bright bg-gradient-to-t from-gold/[0.08] via-gold/25 to-gold/60"
+                          className={cx(
+                            "bar-grow absolute inset-x-0 bottom-0 mx-auto w-full max-w-[4.5rem] rounded-t-[2px]",
+                            BAR_FILLS[i] ?? "bg-navy",
+                          )}
                           style={{
                             height: `${pct}%`,
                             transitionDelay: `${260 + i * 150}ms`,
@@ -347,16 +357,16 @@ function Process() {
             <Reveal key={p.title} delay={i * 90} className="h-full">
               <div className="group relative flex h-full flex-col pt-7">
                 <span
-                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 ease-out group-hover:scale-x-100"
+                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-navy-mid transition-transform duration-500 ease-out group-hover:scale-x-100"
                   aria-hidden
                 />
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="figure text-[2.75rem] text-cream/[0.14] transition-colors duration-500 group-hover:text-gold/50">
+                  <span className="figure text-[2.75rem] text-navy-pale transition-colors duration-500 group-hover:text-navy-light">
                     {`0${i + 1}`}
                   </span>
                   <span className="label">{p.eyebrow}</span>
                 </div>
-                <h3 className="display display-3 mt-6 text-cream">{p.title}</h3>
+                <h3 className="display display-3 mt-6">{p.title}</h3>
                 <p className="body-sm mt-3.5 text-pretty">{p.body}</p>
               </div>
             </Reveal>
@@ -371,7 +381,7 @@ function Process() {
 
 function Included() {
   return (
-    <section className="section-y relative border-t border-line bg-ink-soft/50">
+    <section className="section-y relative border-t border-line bg-surface-sunken">
       <div className="shell">
         <SectionHead
           index="04"
@@ -388,29 +398,23 @@ function Included() {
         <div className="grid-hairline mt-16 grid sm:grid-cols-2 lg:grid-cols-3">
           {included.map((item, i) => (
             <Reveal key={item.title} delay={(i % 3) * 80} className="h-full">
-              <div className="group flex h-full flex-col gap-4 bg-ink p-8 transition-colors duration-300 hover:bg-ink-raised">
-                <span className="grid h-10 w-10 place-items-center rounded-[3px] border border-line-strong text-gold transition-colors duration-300 group-hover:border-gold/45 group-hover:text-gold-bright">
+              <div className="group flex h-full flex-col gap-4 bg-white p-8">
+                <span className="grid h-10 w-10 place-items-center rounded-[3px] border border-line-strong text-navy-mid transition-colors duration-300 group-hover:border-navy-mid group-hover:bg-navy-wash">
                   <CheckIcon />
                 </span>
-                <h3 className="display display-3 mt-1 text-cream">
-                  {item.title}
-                </h3>
+                <h3 className="display display-3 mt-1">{item.title}</h3>
                 <p className="body-sm text-pretty">{item.desc}</p>
               </div>
             </Reveal>
           ))}
           <Reveal delay={160} className="h-full">
-            <div className="relative flex h-full flex-col justify-center gap-3 overflow-hidden bg-ink p-8">
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-gold/[0.14] via-gold/[0.04] to-transparent"
-                aria-hidden
-              />
-              <p className="display relative text-[1.5rem] leading-tight text-cream">
+            <div className="flex h-full flex-col justify-center gap-3 bg-navy-wash p-8">
+              <p className="display text-[1.5rem] leading-tight">
                 All 1-on-1.
                 <br />
                 <span className="display-accent">All bespoke.</span>
               </p>
-              <p className="body-sm relative text-pretty">
+              <p className="body-sm text-pretty">
                 Sequenced around your school, timeline, and target seat.
               </p>
             </div>
@@ -425,45 +429,36 @@ function Included() {
 
 function Results() {
   return (
-    <section
-      id="results"
-      className="section-y relative overflow-hidden bg-paper text-graphite"
-    >
-      <div className="bg-grain" aria-hidden />
+    <section id="results" className="band-deep section-y relative overflow-hidden">
+      <div className="bg-grid absolute inset-0" aria-hidden />
       <div className="shell relative">
         <Reveal className="mx-auto max-w-2xl text-center">
           <div className="flex items-center justify-center gap-3">
-            <span className="h-px w-7 bg-gold-deep" aria-hidden />
-            <span className="label" style={{ color: "var(--color-gold-deep)" }}>
-              05 / The results
-            </span>
-            <span className="h-px w-7 bg-gold-deep" aria-hidden />
+            <span className="h-px w-7 bg-accent" aria-hidden />
+            <span className="label">05 / The results</span>
+            <span className="h-px w-7 bg-accent" aria-hidden />
           </div>
-          <h2 className="display display-2 mt-6 text-balance text-graphite">
+          <h2 className="display display-2 mt-6 text-balance">
             Numbers earned,{" "}
-            <span className="italic text-gold-deep">
-              one student at a time.
-            </span>
+            <span className="display-accent">one student at a time.</span>
           </h2>
         </Reveal>
 
-        <dl className="mt-16 grid grid-cols-2 border-y border-line-dark lg:grid-cols-4">
+        <dl className="mt-16 grid grid-cols-2 border-y border-line lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal
               key={s.label}
               delay={i * 70}
               className={cx(
-                "border-line-dark",
+                "border-line",
                 i % 2 === 1 && "border-l",
                 i >= 2 && "border-t lg:border-t-0",
                 i > 0 && "lg:border-l",
               )}
             >
               <div className="flex h-full flex-col-reverse items-center justify-end gap-4 px-5 py-10 text-center">
-                <dt className="meta max-w-[13rem] text-graphite-dim">
-                  {s.label}
-                </dt>
-                <dd className="figure text-[3rem] text-graphite sm:text-[3.75rem]">
+                <dt className="meta max-w-[13rem] text-fg-dim">{s.label}</dt>
+                <dd className="figure text-[3rem] sm:text-[3.75rem]">
                   {s.value}
                 </dd>
               </div>
@@ -477,7 +472,7 @@ function Results() {
               key={t.name}
               delay={i * 90}
               className={cx(
-                "h-full border-line-dark",
+                "h-full border-line",
                 i > 0 && "border-t lg:border-t-0 lg:border-l",
               )}
             >
@@ -490,24 +485,24 @@ function Results() {
               >
                 <div>
                   <span
-                    className="display block text-[2.75rem] leading-none text-gold-deep/45"
+                    className="display block text-[2.75rem] leading-none text-accent-soft/60"
                     aria-hidden
                   >
                     &ldquo;
                   </span>
-                  <blockquote className="mt-1 text-[1.0625rem] leading-[1.7] text-pretty text-graphite/90">
+                  <blockquote className="mt-1 text-[1.0625rem] leading-[1.7] text-pretty text-fg">
                     {t.quote}
                   </blockquote>
                 </div>
-                <figcaption className="mt-7 flex items-center gap-3 border-t border-line-dark pt-5">
-                  <span className="grid h-9 w-9 flex-none place-items-center rounded-full border border-line-dark-strong font-mono text-[0.6875rem] text-graphite-dim">
+                <figcaption className="mt-7 flex items-center gap-3 border-t border-line pt-5">
+                  <span className="grid h-9 w-9 flex-none place-items-center rounded-full border border-line-strong font-mono text-[0.6875rem] text-fg-dim">
                     {t.name.replace(/[^A-Z]/g, "")}
                   </span>
                   <span>
-                    <span className="block text-[0.875rem] font-medium text-graphite">
+                    <span className="block text-[0.875rem] font-medium text-fg">
                       {t.name}
                     </span>
-                    <span className="meta mt-0.5 block text-gold-deep">
+                    <span className="meta mt-0.5 block text-accent">
                       {t.detail}
                     </span>
                   </span>
@@ -517,7 +512,7 @@ function Results() {
           ))}
         </div>
 
-        <p className="mt-14 text-center text-[0.75rem] leading-relaxed text-graphite-muted">
+        <p className="mt-14 text-center text-[0.75rem] leading-relaxed text-fg-muted">
           Student identities abbreviated to protect privacy. Outcomes reflect
           individual results and are not guarantees.
         </p>
@@ -548,15 +543,13 @@ function Tracks() {
             <Reveal key={t.name} delay={(i % 4) * 80} className="h-full">
               <div className="panel panel-hover group flex h-full flex-col p-7">
                 <div className="flex items-start justify-between">
-                  <span className="label tnum label-muted">
-                    {`0${i + 1}`}
-                  </span>
+                  <span className="label tnum label-muted">{`0${i + 1}`}</span>
                   <span
-                    className="h-px w-7 bg-gold transition-all duration-500 ease-out group-hover:w-12"
+                    className="h-px w-7 bg-navy-mid transition-all duration-500 ease-out group-hover:w-12"
                     aria-hidden
                   />
                 </div>
-                <h3 className="display mt-6 text-[1.375rem] leading-tight text-cream">
+                <h3 className="display mt-6 text-[1.375rem] leading-tight">
                   {t.name}
                 </h3>
                 <p className="body-sm mt-3.5 text-pretty">{t.desc}</p>
@@ -575,7 +568,7 @@ function Global() {
   return (
     <section
       id="global"
-      className="section-y relative border-t border-line bg-ink-soft/50"
+      className="section-y relative border-t border-line bg-surface-sunken"
     >
       <div className="shell">
         <SectionHead
@@ -598,38 +591,29 @@ function Global() {
               <Reveal key={r.name} delay={i * 90} className="h-full">
                 <div
                   className={cx(
-                    "relative flex h-full flex-col overflow-hidden p-7",
+                    "relative flex h-full flex-col overflow-hidden rounded-[4px] p-7",
                     primary
-                      ? "rounded-[4px] border border-gold/35 bg-ink-raised"
+                      ? "border border-navy-mid/45 bg-navy-wash"
                       : "panel panel-hover",
                   )}
                 >
-                  {primary && (
-                    <div
-                      className="absolute inset-0 bg-gradient-to-br from-gold/[0.11] via-transparent to-transparent"
-                      aria-hidden
-                    />
-                  )}
-                  <div className="relative flex items-center justify-between gap-3">
-                    <h3 className="display text-[1.375rem] text-cream">
-                      {r.name}
-                    </h3>
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="display text-[1.375rem]">{r.name}</h3>
                     <span
-                      className={`label whitespace-nowrap rounded-full px-2.5 py-1.5 ${
+                      className={cx(
+                        "label whitespace-nowrap rounded-full px-2.5 py-1.5",
                         primary
-                          ? "bg-gold/15 text-gold-bright"
-                          : "border border-line label-muted"
-                      }`}
+                          ? "bg-navy text-white"
+                          : "border border-line label-muted",
+                      )}
                     >
                       {r.tag}
                     </span>
                   </div>
-                  <p className="figure relative mt-7 text-[1.75rem] text-gold-bright">
+                  <p className="figure mt-7 text-[1.75rem] text-navy-mid">
                     {r.offers}
                   </p>
-                  <p className="body-sm relative mt-3.5 text-pretty">
-                    {r.detail}
-                  </p>
+                  <p className="body-sm mt-3.5 text-pretty">{r.detail}</p>
                 </div>
               </Reveal>
             );
@@ -663,12 +647,12 @@ function Mentors() {
             <Reveal key={m.role} delay={i * 90} className="h-full">
               <div className="panel panel-hover flex h-full flex-col p-7">
                 <div className="flex items-start gap-4">
-                  <span className="grid h-12 w-12 flex-none place-items-center rounded-[3px] border border-line-strong text-gold-bright">
+                  <span className="grid h-12 w-12 flex-none place-items-center rounded-[3px] border border-line-strong bg-navy-wash text-navy-mid">
                     <AnonIcon />
                   </span>
                   <div>
                     <p className="label label-muted">Verified mentor</p>
-                    <h3 className="display mt-2.5 text-[1.125rem] leading-snug text-cream">
+                    <h3 className="display mt-2.5 text-[1.125rem] leading-snug">
                       {m.role}
                     </h3>
                   </div>
@@ -682,7 +666,7 @@ function Mentors() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-9 text-[0.75rem] leading-relaxed text-muted">
+        <p className="mt-9 text-[0.75rem] leading-relaxed text-fg-muted">
           Mentor identities are kept anonymous to protect their active roles and
           firm relationships. Backgrounds are verified during onboarding.
         </p>
@@ -695,15 +679,13 @@ function Mentors() {
 
 function Cta() {
   return (
-    <section className="relative px-6 pt-4 pb-8 lg:px-10">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[4px] border border-gold/25 bg-ink-raised px-6 py-16 text-center sm:px-16 sm:py-20">
-        <div className="rule-accent absolute inset-x-0 top-0" aria-hidden />
-        <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
+    <section className="relative px-6 py-6 lg:px-10">
+      <div className="band-deep relative mx-auto max-w-6xl overflow-hidden rounded-[4px] px-6 py-16 text-center sm:px-16 sm:py-20">
+        <div className="bg-grid absolute inset-0" aria-hidden />
         <div
-          className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[46rem] -translate-x-1/2 rounded-full bg-gold/25 blur-[110px]"
+          className="pointer-events-none absolute -bottom-44 left-1/2 h-80 w-[46rem] -translate-x-1/2 rounded-full bg-navy-light/30 blur-[110px]"
           aria-hidden
         />
-        <div className="bg-grain" aria-hidden />
 
         <Reveal className="relative">
           <span className="label">Your move</span>
@@ -728,7 +710,7 @@ function Cta() {
             </a>
             <a
               href={`mailto:${site.email}`}
-              className="text-[0.875rem] text-cream-dim underline decoration-line-strong decoration-1 underline-offset-4 transition-colors hover:text-cream hover:decoration-gold"
+              className="text-[0.875rem] text-fg-dim underline decoration-line-strong decoration-1 underline-offset-4 transition-colors hover:text-fg hover:decoration-accent"
             >
               or email {site.email}
             </a>
@@ -747,9 +729,9 @@ function FaqSection() {
       <div className="shell max-w-3xl">
         <Reveal className="text-center">
           <div className="flex items-center justify-center gap-3">
-            <span className="h-px w-7 bg-gold" aria-hidden />
+            <span className="h-px w-7 bg-navy-mid" aria-hidden />
             <span className="label">09 / Questions</span>
-            <span className="h-px w-7 bg-gold" aria-hidden />
+            <span className="h-px w-7 bg-navy-mid" aria-hidden />
           </div>
           <h2 className="display display-2 mt-6 text-balance">
             The <span className="display-accent">honest</span> answers.
@@ -767,12 +749,12 @@ function FaqSection() {
 
 function Footer() {
   return (
-    <footer className="relative border-t border-line bg-ink-inset">
+    <footer className="band-deep relative">
       <div className="shell py-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
             <Wordmark size="md" />
-            <p className="body-sm mt-6 text-pretty">
+            <p className="body-sm mt-7 text-pretty">
               {site.tagline}{" "}
               Elite 1-on-1 coaching for the world&apos;s most competitive
               finance roles.
@@ -839,7 +821,7 @@ function Footer() {
         </div>
 
         <div className="mt-14 border-t border-line pt-8">
-          <p className="max-w-4xl text-[0.75rem] leading-relaxed text-muted">
+          <p className="max-w-4xl text-[0.75rem] leading-relaxed text-fg-muted">
             {site.disclaimer}
           </p>
           <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -920,7 +902,7 @@ function SectionEyebrow({
 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="h-px w-7 flex-none bg-gold" aria-hidden />
+      <span className="h-px w-7 flex-none bg-navy-mid" aria-hidden />
       <span className="label tnum">
         {index} / {children}
       </span>
