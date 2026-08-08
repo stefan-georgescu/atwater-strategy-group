@@ -18,8 +18,8 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="email" className="login-label">
+      <div className="flex flex-col gap-2.5">
+        <label htmlFor="email" className="field-label">
           Email address
         </label>
         <input
@@ -29,17 +29,20 @@ export default function LoginForm() {
           autoComplete="email"
           required
           placeholder="you@university.edu"
-          className="login-input"
+          className="field-input"
           onChange={() => status === "error" && setStatus("idle")}
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className="login-label">
+          <label htmlFor="password" className="field-label">
             Password
           </label>
-          <a href="#" className="login-link text-[0.78rem]">
+          <a
+            href="#"
+            className="text-[0.78rem] text-gold transition-colors hover:text-gold-bright"
+          >
             Forgot password?
           </a>
         </div>
@@ -51,7 +54,7 @@ export default function LoginForm() {
             autoComplete="current-password"
             required
             placeholder="••••••••••••"
-            className="login-input pr-12"
+            className="field-input pr-12"
             onChange={() => status === "error" && setStatus("idle")}
           />
           <button
@@ -77,12 +80,12 @@ export default function LoginForm() {
 
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          status === "error" ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
+          status === "error" ? "max-h-24 opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-live="polite"
       >
-        <p className="flex items-start gap-2 rounded-lg border border-gold/25 bg-gold/[0.05] px-3.5 py-2.5 text-[0.82rem] leading-relaxed text-cream-dim">
-          <span className="mt-0.5 text-gold" aria-hidden>
+        <p className="flex items-start gap-2.5 rounded-[4px] border border-gold/25 bg-gold/[0.05] px-3.5 py-3 text-[0.82rem] leading-relaxed text-cream-dim">
+          <span className="mt-0.5 flex-none text-gold" aria-hidden>
             ⓘ
           </span>
           Portal access is reserved for active members. Please check your
@@ -93,7 +96,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="login-submit group"
+        className="btn btn-lg btn-primary group w-full disabled:cursor-progress disabled:opacity-75"
       >
         {status === "loading" ? (
           <>
@@ -125,7 +128,10 @@ export default function LoginForm() {
 
       <p className="text-center text-[0.82rem] text-muted">
         Trouble signing in?{" "}
-        <a href={`mailto:${site.email}`} className="login-link">
+        <a
+          href={`mailto:${site.email}`}
+          className="text-gold transition-colors hover:text-gold-bright"
+        >
           Contact your advisor
         </a>
       </p>

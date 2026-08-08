@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { site } from "@/lib/site";
+import Wordmark from "@/components/Wordmark";
 
 const links = [
   { href: "#approach", label: "Approach" },
@@ -14,14 +16,24 @@ const links = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 12);
+      setProgress(max > 0 ? Math.min(y / max, 1) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -53,22 +65,18 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         scrolled
-          ? "border-b border-line bg-ink/80 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-line bg-ink/85 backdrop-blur-xl"
+          : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <a href="#top" className="group flex items-center gap-3">
-          <Logo />
-          <span className="font-display text-xl tracking-tight text-cream sm:text-2xl">
-            Atwater{" "}
-            <span className="text-cream-dim">Strategy Group</span>
-          </span>
+      <nav className="shell flex h-[4.5rem] items-center justify-between">
+        <a href="#top" className="flex items-center gap-3">
+          <Wordmark />
         </a>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center lg:flex">
           {links.map((l) => {
             const isActive = active === l.href;
             return (
@@ -76,13 +84,13 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive ? "true" : undefined}
-                className={`group relative px-4 py-2 text-[0.95rem] font-medium tracking-tight transition-colors duration-200 ${
+                className={`group relative px-3.5 py-2 text-[0.875rem] font-medium tracking-[-0.005em] transition-colors duration-200 ${
                   isActive ? "text-cream" : "text-cream-dim hover:text-cream"
                 }`}
               >
                 {l.label}
                 <span
-                  className={`pointer-events-none absolute inset-x-3 -bottom-0.5 h-px origin-center bg-gradient-to-r from-transparent via-gold to-transparent transition-transform duration-300 ${
+                  className={`pointer-events-none absolute inset-x-3.5 bottom-0 h-px origin-left bg-gold transition-transform duration-300 ${
                     isActive
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
@@ -94,59 +102,22 @@ export default function Nav() {
           })}
         </div>
 
-        <div className="hidden items-center gap-2.5 lg:flex">
-          <a
+        <div className="hidden items-center gap-2 lg:flex">
+          <Link
             href={site.portalUrl}
-            className="group inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-3 text-[0.9rem] font-medium tracking-tight text-cream-dim transition-all hover:border-gold/45 hover:text-cream"
+            className="btn btn-md btn-quiet gap-1.5 text-[0.8125rem]"
           >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden
-              className="text-gold"
-            >
-              <path
-                d="M11 5.5V4.2A2.2 2.2 0 0 0 8.8 2H4.2A2.2 2.2 0 0 0 2 4.2v7.6A2.2 2.2 0 0 0 4.2 14h4.6A2.2 2.2 0 0 0 11 11.8v-1.3"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M6.5 8h8m0 0-2.2-2.2M14.5 8l-2.2 2.2"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Portal Login
-          </a>
+            <LockIcon />
+            Portal
+          </Link>
           <a
             href={site.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-[0.9rem] font-semibold tracking-tight text-ink transition-all hover:bg-gold-bright hover:shadow-[0_0_30px_-6px_rgba(201,169,106,0.7)]"
+            className="btn btn-md btn-primary group"
           >
             Book a call
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              className="transition-transform duration-200 group-hover:translate-x-0.5"
-              aria-hidden
-            >
-              <path
-                d="M3 8h10M9 4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Arrow />
           </a>
         </div>
 
@@ -155,21 +126,21 @@ export default function Nav() {
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg text-cream lg:hidden"
+          className="-mr-2 flex h-11 w-11 items-center justify-center text-cream lg:hidden"
         >
-          <span className="relative block h-4 w-5">
+          <span className="relative block h-3.5 w-5">
             <span
-              className={`absolute left-0 block h-0.5 w-5 bg-current transition-all duration-300 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-all duration-300 ${
                 open ? "top-1.5 rotate-45" : "top-0"
               }`}
             />
             <span
-              className={`absolute left-0 top-1.5 block h-0.5 w-5 bg-current transition-all duration-300 ${
+              className={`absolute left-0 top-1.5 block h-px w-5 bg-current transition-opacity duration-300 ${
                 open ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`absolute left-0 block h-0.5 w-5 bg-current transition-all duration-300 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-all duration-300 ${
                 open ? "top-1.5 -rotate-45" : "top-3"
               }`}
             />
@@ -177,93 +148,106 @@ export default function Nav() {
         </button>
       </nav>
 
+      {/* Reading progress */}
+      <div
+        className="h-px origin-left bg-gradient-to-r from-gold-deep via-gold to-gold-bright transition-transform duration-150 ease-out"
+        style={{ transform: `scaleX(${progress})` }}
+        aria-hidden
+      />
+
       {/* Mobile menu */}
       <div
-        className={`lg:hidden overflow-hidden border-t border-line bg-ink/95 backdrop-blur-xl transition-[max-height,opacity] duration-300 ${
-          open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+        className={`overflow-hidden border-b border-line bg-ink/95 backdrop-blur-xl transition-[max-height,opacity] duration-[400ms] lg:hidden ${
+          open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="flex flex-col gap-1 px-6 py-5">
-          {links.map((l) => {
+        <div className="shell flex flex-col py-4">
+          {links.map((l, i) => {
             const isActive = active === l.href;
             return (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center justify-between rounded-lg px-3 py-3.5 text-lg font-medium tracking-tight transition-colors ${
-                  isActive
-                    ? "bg-ink-raised text-cream"
-                    : "text-cream-dim hover:bg-ink-raised hover:text-cream"
+                className={`flex items-center gap-4 border-b border-line py-4 transition-colors ${
+                  isActive ? "text-cream" : "text-cream-dim"
                 }`}
               >
-                {l.label}
+                <span className="label label-muted w-6">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="display display-3">{l.label}</span>
                 {isActive && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+                  <span className="ml-auto h-1 w-1 rounded-full bg-gold" aria-hidden />
                 )}
               </a>
             );
           })}
-          <a
-            href={site.portalUrl}
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-line px-5 py-3 text-sm font-medium text-cream"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden
-              className="text-gold"
+          <div className="mt-5 flex flex-col gap-2.5 pb-2">
+            <a
+              href={site.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="btn btn-lg btn-primary"
             >
-              <path
-                d="M11 5.5V4.2A2.2 2.2 0 0 0 8.8 2H4.2A2.2 2.2 0 0 0 2 4.2v7.6A2.2 2.2 0 0 0 4.2 14h4.6A2.2 2.2 0 0 0 11 11.8v-1.3"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M6.5 8h8m0 0-2.2-2.2M14.5 8l-2.2 2.2"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Portal Login
-          </a>
-          <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-flex items-center justify-center rounded-full bg-gold px-5 py-3 text-sm font-medium text-ink"
-          >
-            Book a call
-          </a>
+              Book your intro call
+              <Arrow />
+            </a>
+            <Link
+              href={site.portalUrl}
+              onClick={() => setOpen(false)}
+              className="btn btn-lg btn-outline gap-2"
+            >
+              <LockIcon />
+              Member portal
+            </Link>
+          </div>
         </div>
       </div>
     </header>
   );
 }
 
-function Logo() {
+function Arrow() {
   return (
-    <span className="grid h-12 w-12 place-items-center rounded-lg border border-gold/40 bg-gradient-to-b from-gold/20 to-transparent">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path
-          d="M12 3L21 19H3L12 3Z"
-          stroke="var(--color-gold-bright)"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 9L16 16H8L12 9Z"
-          fill="var(--color-gold-bright)"
-        />
-      </svg>
-    </span>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      className="transition-transform duration-200 group-hover:translate-x-0.5"
+      aria-hidden
+    >
+      <path
+        d="M3 8h10M9 4l4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <rect
+        x="3.25"
+        y="7"
+        width="9.5"
+        height="6.75"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+      <path
+        d="M5.6 7V5.1a2.4 2.4 0 0 1 4.8 0V7"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
