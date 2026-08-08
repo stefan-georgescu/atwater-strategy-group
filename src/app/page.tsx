@@ -41,6 +41,12 @@ export default function Home() {
 
 /* ---------------------------------- Hero ---------------------------------- */
 
+const HERO_NOTES = [
+  "Limited roster",
+  "By application",
+  "Target & non-target welcome",
+];
+
 function Hero() {
   return (
     <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-24 lg:pt-52 lg:pb-28">
@@ -98,16 +104,19 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={280}>
-          {/* Split so the line breaks between items rather than inside one. */}
+          {/* Each item keeps its trailing separator so the line breaks
+              between items rather than inside one. */}
           <p className="label label-muted label-compact mt-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
-            {["Limited roster", "By application", "Target & non-target welcome"].map(
-              (item, i) => (
-                <span key={item} className="flex items-center gap-2.5">
-                  {i > 0 && <span aria-hidden>·</span>}
-                  <span className="whitespace-nowrap">{item}</span>
-                </span>
-              ),
-            )}
+            {HERO_NOTES.map((item, i) => (
+              <span key={item} className="whitespace-nowrap">
+                {item}
+                {i < HERO_NOTES.length - 1 && (
+                  <span className="pl-2.5" aria-hidden>
+                    ·
+                  </span>
+                )}
+              </span>
+            ))}
           </p>
         </Reveal>
       </div>

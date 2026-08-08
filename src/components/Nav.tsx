@@ -67,7 +67,7 @@ export default function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
         scrolled
-          ? "border-b border-line bg-white/85 backdrop-blur-xl"
+          ? "border-b border-line bg-white/90 backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -157,7 +157,7 @@ export default function Nav() {
 
       {/* Mobile menu */}
       <div
-        className={`overflow-hidden border-b border-line bg-white/97 backdrop-blur-xl transition-[max-height,opacity] duration-[400ms] lg:hidden ${
+        className={`overflow-hidden border-b border-line bg-white/96 backdrop-blur-xl transition-[max-height,opacity] duration-[400ms] lg:hidden ${
           open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
