@@ -179,6 +179,72 @@ body {
     color: var(--color-accent);
   }
 
+  /* ---------------------------- Hero cover ---------------------------- */
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero-brand {
+    display: flex;
+    justify-content: center;
+    transform-origin: top center;
+  }
+  @media (max-width: 639px) {
+    .hero-brand {
+      transform: scale(0.88);
+    }
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 4.2vw, 2.75rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--color-accent);
+  }
+
+  .hero-lead {
+    max-width: 30rem;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-fg-dim);
+  }
+  @media (min-width: 640px) {
+    .hero-lead {
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
+  }
+
+  .hero-notes {
+    max-width: 28rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    color: var(--color-fg-muted);
+  }
+
+  .hero-grid {
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 55%,
+      transparent 92%
+    );
+    mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 92%);
+  }
+
   .tnum {
     font-variant-numeric: tabular-nums lining-nums;
   }
@@ -325,19 +391,19 @@ body {
       linear-gradient(to bottom, rgba(233, 240, 248, 0.06) 1px, transparent 1px);
   }
 
-  /* Soft blue wash behind the hero, standing in for the old dark glow. */
+  /* Soft blue wash behind the hero — restrained so type stays primary. */
   .wash-top {
     pointer-events: none;
     position: absolute;
     left: 50%;
     top: -18rem;
-    height: 46rem;
-    width: min(80rem, 140vw);
+    height: 42rem;
+    width: min(72rem, 130vw);
     transform: translateX(-50%);
     background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(91, 135, 188, 0.3) 0%,
-      rgba(169, 196, 224, 0.18) 42%,
+      48% 48% at 50% 48%,
+      rgba(91, 135, 188, 0.2) 0%,
+      rgba(169, 196, 224, 0.12) 40%,
       transparent 72%
     );
   }
@@ -385,6 +451,43 @@ body {
   }
   .ticker-item:hover {
     color: var(--color-navy);
+  }
+
+  /* Firm logos / wordmarks — shared optical height */
+  .ticker-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    padding-inline: 1.4rem;
+  }
+  .ticker-logo-img {
+    display: block;
+    height: 1.25rem;
+    width: auto;
+    max-width: 7rem;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.68;
+    transition: opacity 0.25s ease;
+    filter: grayscale(1) contrast(1.2) brightness(0.42);
+  }
+  .ticker-logo:hover .ticker-logo-img {
+    opacity: 0.95;
+  }
+  .ticker-logo-wordmark {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-navy);
+    opacity: 0.68;
+    white-space: nowrap;
+    line-height: 1;
+    transition: opacity 0.25s ease;
+  }
+  .ticker-logo:hover .ticker-logo-wordmark {
+    opacity: 0.95;
   }
 
   .footer-link {

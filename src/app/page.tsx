@@ -41,53 +41,39 @@ export default function Home() {
 
 /* ---------------------------------- Hero ---------------------------------- */
 
-const HERO_NOTES = [
-  "Limited roster",
-  "By application",
-  "Target & non-target welcome",
-];
-
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-24 lg:pt-52 lg:pb-28">
+    <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-44 lg:pb-24">
       <div className="wash-top" aria-hidden />
-      <div className="bg-grid absolute inset-0" aria-hidden />
+      <div className="bg-grid hero-grid absolute inset-0" aria-hidden />
       <div className="fade-to-white" aria-hidden />
 
       <div className="shell relative flex flex-col items-center text-center">
-        <Reveal>
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-line-strong bg-white/70 px-3.5 py-2 backdrop-blur-sm">
-            <span className="pulse-dot" aria-hidden />
-            <span className="label label-compact tnum">
-              300+ offers at the world&apos;s top firms
-            </span>
-          </span>
+        <Reveal immediate>
+          <p className="hero-eyebrow">1-on-1 coaching</p>
         </Reveal>
 
-        <Reveal delay={60}>
-          <p className="label label-muted mt-9">The 1-on-1 edge for</p>
+        <Reveal immediate delay={50}>
+          <div className="hero-brand mt-7 sm:mt-8">
+            <Wordmark orientation="stack" size="lg" />
+          </div>
         </Reveal>
 
-        <Reveal delay={100}>
-          <h1 className="display display-1 mt-6 text-balance">
-            <span className="block">High Finance</span>
-            <span className="display-accent block">
-              &amp; Management Consulting
-            </span>
+        <Reveal immediate delay={110}>
+          <h1 className="hero-title mt-9 sm:mt-10 text-balance">
+            Finance &amp; Consulting
           </h1>
         </Reveal>
 
-        <Reveal delay={160}>
-          <p className="prose-lead mx-auto mt-9 max-w-[36rem] text-pretty">
-            We pair ambitious students with mentors who have sat on the other
-            side of the table — at the banks, funds, and firms you&apos;re
-            aiming for. Fully bespoke. Relentlessly prepared. Built to turn
-            long-shot dreams into signed offers.
+        <Reveal immediate delay={170}>
+          <p className="hero-lead mx-auto mt-6 text-pretty">
+            Mentors who have sat on the other side of the table — at the banks,
+            funds, and firms you&apos;re aiming for.
           </p>
         </Reveal>
 
-        <Reveal delay={220}>
-          <div className="mt-11 flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
+        <Reveal immediate delay={230}>
+          <div className="mt-9 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
             <a
               href={site.bookingUrl}
               target="_blank"
@@ -103,52 +89,16 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={280}>
-          {/* Each item keeps its trailing separator so the line breaks
-              between items rather than inside one. */}
-          <p className="label label-muted label-compact mt-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
-            {HERO_NOTES.map((item, i) => (
-              <span key={item} className="whitespace-nowrap">
-                {item}
-                {i < HERO_NOTES.length - 1 && (
-                  <span className="pl-2.5" aria-hidden>
-                    ·
-                  </span>
-                )}
-              </span>
-            ))}
+        <Reveal immediate delay={290}>
+          <p className="hero-notes mt-7">
+            Limited roster
+            <span aria-hidden> · </span>
+            By application
+            <span aria-hidden> · </span>
+            Target &amp; non-target welcome
           </p>
         </Reveal>
       </div>
-
-      {/* Tearsheet ledger */}
-      <Reveal delay={340}>
-        <div className="shell relative mt-20">
-          <dl className="grid grid-cols-2 border-y border-line sm:grid-cols-4">
-            {[
-              { value: "300+", label: "Offers secured" },
-              { value: "~90%", label: "Offer rate" },
-              { value: "50+", label: "Top firms" },
-              { value: "1:1", label: "Always bespoke" },
-            ].map((s, i) => (
-              <div
-                key={s.label}
-                className={cx(
-                  "flex flex-col-reverse items-center justify-end gap-3 border-line px-4 py-8",
-                  i % 2 === 1 && "border-l",
-                  i >= 2 && "border-t sm:border-t-0",
-                  i > 0 && "sm:border-l",
-                )}
-              >
-                <dt className="label label-muted">{s.label}</dt>
-                <dd className="figure text-[2rem] sm:text-[2.25rem]">
-                  {s.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </Reveal>
     </section>
   );
 }

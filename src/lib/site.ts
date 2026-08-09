@@ -35,49 +35,25 @@ export const story = {
   ],
 };
 
+/**
+ * Firms in the offers marquee.
+ * Prefer wordmark files in /public/firms; otherwise typed names render.
+ * Single-letter / monogram marks are intentionally omitted.
+ */
 export const firms = [
-  "Goldman Sachs",
-  "Morgan Stanley",
-  "J.P. Morgan",
-  "McKinsey & Co.",
-  "Bain & Company",
-  "BCG",
-  "Evercore",
-  "Blackstone",
-  "BlackRock",
-  "Lazard",
-  "Centerview",
-  "KKR",
-  "Bank of America",
-  "Citi",
-  "Barclays",
-  "UBS",
-  "Deutsche Bank",
-  "Jefferies",
-  "Houlihan Lokey",
-  "Rothschild & Co",
-  "PJT Partners",
-  "Moelis & Co.",
-  "Perella Weinberg",
-  "Guggenheim",
-  "RBC Capital Markets",
-  "Carlyle",
-  "Apollo",
-  "TPG",
-  "Warburg Pincus",
-  "Vista Equity",
-  "Silver Lake",
-  "Bain Capital",
-  "Brookfield",
-  "Citadel",
-  "Point72",
-  "Millennium",
-  "Bridgewater",
-  "Fidelity",
-  "Wellington",
-  "PIMCO",
-  "Oliver Wyman",
-];
+  { id: "morgan-stanley", name: "Morgan Stanley" },
+  { id: "bain", name: "Bain" },
+  { id: "bcg", name: "BCG" },
+  { id: "citi", name: "Citi" },
+  { id: "bank-of-america", name: "Bank of America" },
+  { id: "jefferies", name: "Jefferies" },
+  { id: "goldman-sachs", name: "Goldman Sachs" },
+  { id: "blackstone", name: "Blackstone" },
+  { id: "kkr", name: "KKR" },
+  { id: "evercore", name: "Evercore" },
+  { id: "lazard", name: "Lazard" },
+  { id: "jpmorgan", name: "JPMorgan" },
+] as const;
 
 export const pillars = [
   {
@@ -149,19 +125,19 @@ export const mentors = [
   {
     role: "Vice President — Investment Banking",
     background:
-      "Bulge-bracket M&A banker who has executed $40B+ in announced transactions across tech and industrials.",
+      "Bulge-bracket M&A banker who has executed live deals across tech and industrials — and sat through the recruiting process from both sides.",
     focus: "M&A technicals, deal narrative, superday strategy",
   },
   {
-    role: "Principal — Private Equity",
+    role: "Associate — Private Equity",
     background:
-      "Buy-side investor at a $25B fund; previously an elite-boutique analyst. Closed 12+ platform and add-on deals.",
+      "Buy-side associate at a megafund; previously an elite-boutique analyst. Runs LBOs, diligence, and on-cycle recruiting day to day.",
     focus: "LBO mastery, on-cycle prep, case studies",
   },
   {
-    role: "Engagement Manager — MBB Consulting",
+    role: "Associate — MBB Consulting",
     background:
-      "Strategy consultant at a top-three firm (McKinsey / Bain / BCG) who has led campus recruiting and case interviewing.",
+      "Strategy associate at a top-three firm (McKinsey / Bain / BCG) who still cases weekly and knows exactly how campus interviews are scored.",
     focus: "Case mastery, structuring, fit, and offer strategy",
   },
 ];

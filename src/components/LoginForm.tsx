@@ -19,16 +19,16 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
       <div className="flex flex-col gap-2.5">
-        <label htmlFor="email" className="field-label">
-          Email address
+        <label htmlFor="studentId" className="field-label">
+          Student ID
         </label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
+          id="studentId"
+          name="studentId"
+          type="text"
+          autoComplete="username"
           required
-          placeholder="you@university.edu"
+          placeholder="Enter your student ID"
           className="field-input"
           onChange={() => status === "error" && setStatus("idle")}
         />
